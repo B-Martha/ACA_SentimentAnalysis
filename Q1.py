@@ -23,12 +23,10 @@ while i < len1:
                     elif t < len(subseq):
                         subseq[t] = str2[i2 - max_count + t]
                     t += 1
-#                    print(subseq)
         else:
             count = 0
             i1 = i
             i2 += 1
-#        print(str(i1), str(i2), str(count), str(max_count))
     i += 1
 print("The longest common subsequence of the two given strings is: ")
 print(*subseq, sep = '')
