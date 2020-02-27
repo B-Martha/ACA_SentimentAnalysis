@@ -7,7 +7,7 @@ inv_mat = [[0 for x in range(N)] for x in range(N)]
 def display_matrix(matrix):
     #Displays matrix in a simple manner.
     for x in range(len(matrix)):
-        print(*matrix[x])
+        print(*matrix[x], sep = '\t')
 
 
 def input_matrix(matrix):
@@ -16,8 +16,16 @@ def input_matrix(matrix):
         matrix[x] = [int(x) for x in input().split()]
 
 
+def scalar_multiply(matrix, scalar):
+    # Multiplies entire matrix by a scalar
+    for x in range(len(matrix)):
+        for y in range(len(matrix[0])):
+            matrix[x][y] *= scalar
+    return matrix
+
+
 def cofactor(matrix, i, j):
-    #returns cofactor of the matrix
+    # Returns cofactor of the matrix
     temp = [[0 for p in range(len(matrix) - 1)] for p in range(len(matrix) - 1)]
     x = y = row = col = 0
     while row < len(matrix):
@@ -31,7 +39,7 @@ def cofactor(matrix, i, j):
             col += 1
         row += 1
         col = 0
-    return temp
+    return scalar_multiply(temp, ((-1)**(i+j)))
 
 
 def determinant(matrix):
@@ -42,7 +50,6 @@ def determinant(matrix):
         return matrix[0][0]
     for t in range(len(matrix)):
         det += sign * matrix[0][t] * determinant(cofactor(matrix, 0, t))
-        sign *= -1
     return det
 
 
@@ -53,16 +60,7 @@ def adjoint(matrix):
     for x in range(len(matrix)):
         for y in range(len(matrix)):
             temp[y][x] = sign * determinant(cofactor(matrix, x, y))
-            sign *= -1
     return temp
-
-
-def scalar_multiply(matrix, scalar):
-    # Multiplies entire matrix by a scalar
-    for x in range(len(matrix)):
-        for y in range(len(matrix[0])):
-            matrix[x][y] *= scalar
-    return matrix
 
 
 print("Enter the matrix below:")
